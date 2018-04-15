@@ -26,31 +26,121 @@ class vec3 {
 		inline vec3& operator/=(const vec3 &vr);
 		inline vec3& operator*=(const float t);
 		inline vec3& operator/=(const float t);
-		inline vec3& operator/(const float t);
-
-		inline float length() const {
-			return sqrt(e[0] * e[0] + e[1] * e[1] + e[2] * e[2]); 
-		}
-
-		inline float lengthSquared() const {
-			return e[0] * e[0] + e[1] * e[1] + e[2] * e[2];
-		}
-
-		inline void normalize();
 
 		float e[3];
 };
 
-inline vec3 operator*(float t, const vec3 &v);
-inline vec3 operator*(const vec3 &v, float t);
-inline std::istream& operator>>(std::istream &is, vec3 &t);
-inline std::ostream& operator>>(std::ostream &os, vec3 &t);
-inline vec3 operator+(const vec3 &vl, const vec3 &vr);
-inline vec3 operator-(const vec3 &vl, const vec3 &vr);
-inline vec3 operator*(const vec3 &vl, const vec3 &vr);
-inline vec3 operator/(const vec3 &vl, const vec3 &vr);
-inline vec3 operator*(float t, const vec3 &v);
-inline vec3 operator*(const vec3 &v, float t);
-inline vec3 operator/(vec3 v, float t);
-inline float dot(const vec3 &vl, const vec3 &vr);
-inline vec3 cross(const vec3 &vl, const vec3 &vr);
+
+inline vec3& vec3::operator+=(const vec3 &v) {
+	e[0] += v.e[0];
+	e[1] += v.e[1];
+	e[2] += v.e[2];
+	return *this;
+}
+
+inline vec3& vec3::operator*=(const vec3 &v) {
+	e[0] *= v.e[0];
+	e[1] *= v.e[1];
+	e[2] *= v.e[2];
+	return *this;
+}
+
+inline vec3& vec3::operator/=(const vec3 &v) {
+	e[0] /= v.e[0];
+	e[1] /= v.e[1];
+	e[2] /= v.e[2];
+	return *this;
+}
+
+inline vec3& vec3::operator-=(const vec3 &v) {
+	e[0] -= v.e[0];
+	e[1] -= v.e[1];
+	e[2] -= v.e[2];
+	return *this;
+}
+
+inline vec3& vec3::operator*=(const float t) {
+	e[0] *= t;
+	e[1] *= t;
+	e[2] *= t;
+	return *this;
+}
+
+inline vec3& vec3::operator/=(const float t) {
+	float k = 1.0f / t;
+	e[0] *= k;
+	e[1] *= k;
+	e[2] *= k;
+	return *this;
+}
+
+// Non-member operators
+
+inline std::istream& operator>>(std::istream &is, vec3 &t) {
+	is >> t.e[0] >> t.e[1] >> t.e[2];
+	return is;
+}
+
+inline std::ostream& operator>>(std::ostream &os, vec3 &t) {
+	os << t.e[0] << t.e[1] << t.e[2];
+	return os;
+}
+
+inline vec3 operator+(const vec3 &vl, const vec3 &vr) {
+	return vec3(vl.e[0] + vr.e[0], vl.e[1] + vr.e[1], vl.e[2] + vr.e[2]);
+}
+
+inline vec3 operator-(const vec3 &vl, const vec3 &vr) {
+	return vec3(vl.e[0] - vr.e[0], vl.e[1] - vr.e[1], vl.e[2] - vr.e[2]);
+}
+
+inline vec3 operator*(const vec3 &vl, const vec3 &vr) {
+	return vec3(vl.e[0] * vr.e[0], vl.e[1] * vr.e[1], vl.e[2] * vr.e[2]);
+}
+
+inline vec3 operator/(const vec3 &vl, const vec3 &vr) {
+	return vec3(vl.e[0] / vr.e[0], vl.e[1] / vr.e[1], vl.e[2] / vr.e[2]);
+}
+
+inline vec3 operator*(float t, const vec3 &v) {
+	return vec3(t * v.e[0], t * v.e[1], t * v.e[2]);
+}
+
+inline vec3 operator*(const vec3 &v, float t) {
+	return vec3(t * v.e[0], t * v.e[1], t * v.e[2]);
+}
+
+inline vec3 operator/(vec3 v, float t) {
+	return vec3(v.e[0] / t, v.e[1] / t, v.e[2] / t);
+}
+
+// Math
+
+inline float length(const vec3 &v) {
+	return sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+}
+
+inline vec3 normalize(const vec3 &v)
+{
+	float k = 1.0f / sqrtf(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+	float x = k * v[0];
+	float y = k * v[1];
+	float z = k * v[2];
+	return vec3(x, y, z);
+}
+
+inline float dot(const vec3 &vl, const vec3 &vr) {
+	return vl.e[0] * vr.e[0] + vl.e[1] * vr.e[1] + vl.e[2] * vr.e[2];
+}
+
+inline vec3 cross(const vec3 &vl, const vec3 &vr) {
+	return vec3((vl.e[1] * vr.e[2] - vl.e[2] * vr.e[1]),
+		(-(vl.e[0] * vr.e[2] - vl.e[2] * vr.e[0])),
+		(vl.e[0] * vr.e[1] - vl.e[1] * vr.e[0])
+	);
+}
+
+inline vec3 lerp(const vec3 & a, const vec3 & b, const float t)
+{
+	return (1.0f - t)*a + t * b;
+}
