@@ -26,6 +26,7 @@ class vec3 {
 		inline vec3& operator/=(const vec3 &vr);
 		inline vec3& operator*=(const float t);
 		inline vec3& operator/=(const float t);
+		inline vec3& operator/(const float t);
 
 		inline float length() const {
 			return sqrt(e[0] * e[0] + e[1] * e[1] + e[2] * e[2]); 
@@ -39,3 +40,17 @@ class vec3 {
 
 		float e[3];
 };
+
+inline vec3 operator*(float t, const vec3 &v);
+inline vec3 operator*(const vec3 &v, float t);
+inline std::istream& operator>>(std::istream &is, vec3 &t);
+inline std::ostream& operator>>(std::ostream &os, vec3 &t);
+inline vec3 operator+(const vec3 &vl, const vec3 &vr);
+inline vec3 operator-(const vec3 &vl, const vec3 &vr);
+inline vec3 operator*(const vec3 &vl, const vec3 &vr);
+inline vec3 operator/(const vec3 &vl, const vec3 &vr);
+inline vec3 operator*(float t, const vec3 &v);
+inline vec3 operator*(const vec3 &v, float t);
+inline vec3 operator/(vec3 v, float t);
+inline float dot(const vec3 &vl, const vec3 &vr);
+inline vec3 cross(const vec3 &vl, const vec3 &vr);
