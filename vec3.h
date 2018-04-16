@@ -161,6 +161,11 @@ inline bool refract(const vec3& v, const vec3& n, float niOverNt, vec3& refracte
 
 // Random utils
 
+inline float lerp(const float a, const float b, const float t)
+{
+	return (1.0f - t)*a + t * b;
+}
+
 float random();
 
 vec3 randomInUnitSphere();
