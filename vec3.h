@@ -145,8 +145,28 @@ inline vec3 reflect(const vec3& v, const vec3& n) {
 	return v - 2.0f * dot(v, n) * n;
 }
 
+inline bool refract(const vec3& v, const vec3& n, float niOverNt, vec3& refracted) {
+	vec3 uv = normalize(v);
+	float dt = dot(uv, n);
+	float delta = 1.0f - niOverNt * niOverNt * (1.f - dt * dt);
+	if (delta > 0.0f) {
+		refracted = niOverNt * (uv - n * dt) - n * sqrt(delta);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 // Random utils
 
 float random();
 
 vec3 randomInUnitSphere();
+
+inline float schlick(float cosine, float IOR) {
+	float r0 = (1.0f-IOR) / (1.0f+IOR);
+	r0 = r0 * r0;
+	return r0 + (1.0f-r0) * pow((1.0f-cosine), 5.0f);
+}

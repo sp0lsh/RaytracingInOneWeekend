@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="dialectric.h" />
     <ClInclude Include="hitable.h" />
     <ClInclude Include="hitableList.h" />
     <ClInclude Include="lambertian.h" />
