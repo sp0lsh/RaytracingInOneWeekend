@@ -165,6 +165,8 @@ float random();
 
 vec3 randomInUnitSphere();
 
+vec3 randomInUnitDisk();
+
 inline float schlick(float cosine, float IOR) {
 	float r0 = (1.0f-IOR) / (1.0f+IOR);
 	r0 = r0 * r0;
