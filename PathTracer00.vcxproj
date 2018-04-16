@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="camera.h" />
     <ClInclude Include="hitable.h" />
     <ClInclude Include="hitableList.h" />
     <ClInclude Include="ray.h" />
@@ -157,7 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hitableList.cpp" />
-    <ClCompile Include="PathTracer00.cpp" />
+    <ClCompile Include="PathTracer.cpp" />
     <ClCompile Include="sphere.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
