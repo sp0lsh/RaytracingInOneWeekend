@@ -140,3 +140,13 @@ inline vec3 lerp(const vec3 & a, const vec3 & b, const float t)
 {
 	return (1.0f - t)*a + t * b;
 }
+
+inline vec3 reflect(const vec3& v, const vec3& n) {
+	return v - 2.0f * dot(v, n) * n;
+}
+
+// Random utils
+
+float random();
+
+vec3 randomInUnitSphere();

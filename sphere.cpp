@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include <math.h>
+#include "stdafx.h"
 #include "sphere.h"
 
 bool sphere::hit(const ray & r, float tMin, float tMax, hitRecord & hit) const
@@ -15,6 +15,7 @@ bool sphere::hit(const ray & r, float tMin, float tMax, hitRecord & hit) const
 			hit.t = temp;
 			hit.point = r.pointAtT(hit.t);
 			hit.normal = (hit.point - center) / radius;
+			hit.mat = mat;
 			return true;
 		}
 		temp = (-b + sqrt(b*b - a * c)) / a;
@@ -22,6 +23,7 @@ bool sphere::hit(const ray & r, float tMin, float tMax, hitRecord & hit) const
 			hit.t = temp;
 			hit.point = r.pointAtT(hit.t);
 			hit.normal = (hit.point - center) / radius;
+			hit.mat = mat;
 			return true;
 		}
 	}
