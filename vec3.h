@@ -122,11 +122,7 @@ inline float length(const vec3 &v) {
 
 inline vec3 normalize(const vec3 &v)
 {
-	float k = 1.0f / sqrtf(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
-	float x = k * v[0];
-	float y = k * v[1];
-	float z = k * v[2];
-	return vec3(x, y, z);
+	return v / length(v);
 }
 
 inline float dot(const vec3 &vl, const vec3 &vr) {
