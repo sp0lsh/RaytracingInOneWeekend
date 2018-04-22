@@ -3,15 +3,15 @@
 #include "math.h"
 
 class material {
-	public:
-		virtual bool scatter(const ray &in, const hitRecord &hit, vec3& attentuation, ray& scattered) const = 0;
+public:
+	virtual bool scatter(const ray &in, const hitRecord &hit, vec3& attentuation, ray& scattered) const = 0;
 };
 
 class lambertian : public material {
 public:
 	lambertian(const vec3& a) : albedo(a) {}
 
-	virtual bool scatter(const ray & in, const hitRecord& hit, vec3& attentuation, ray& scattered) const override {
+	virtual bool scatter(const ray& in, const hitRecord& hit, vec3& attentuation, ray& scattered) const override {
 		vec3 target = hit.point + hit.normal + randomInUnitSphere();
 		scattered = ray(hit.point, target - hit.point);
 		attentuation = albedo;
@@ -25,7 +25,7 @@ class metal : public material {
 public:
 	metal(const vec3& a, float f) : albedo(a), fuzz(f) {}
 
-	virtual bool scatter(const ray & in, const hitRecord & hit, vec3 & attentuation, ray & scattered) const override {
+	virtual bool scatter(const ray & in, const hitRecord& hit, vec3& attentuation, ray& scattered) const override {
 		vec3 reflected = reflect(normalize(in.dir()), hit.normal);
 		scattered = ray(hit.point, reflected + fuzz * randomInUnitSphere());
 		attentuation = albedo;
@@ -40,7 +40,7 @@ class dialectric : public material {
 public:
 	dialectric(float ior) : IOR(ior) {}
 
-	virtual bool scatter(const ray& in, const hitRecord & hit, vec3 & attentuation, ray & scattered) const override
+	virtual bool scatter(const ray& in, const hitRecord& hit, vec3& attentuation, ray& scattered) const override
 	{
 		attentuation = vec3(1.0f, 1.0f, 1.0f);
 
