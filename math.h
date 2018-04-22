@@ -7,6 +7,33 @@
 
 class material;
 
+float random()
+{
+	return static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+}
+
+vec3 randomInUnitSphere() {
+	vec3 p;
+	do {
+		p = 2.0f * vec3(random(), random(), random()) - vec3(1.0f, 1.0f, 1.0f);
+	} while (dot(p, p) >= 1.0f);
+	return p;
+}
+
+vec3 randomInUnitDisk() {
+	vec3 p;
+	do {
+		p = 2.0f * vec3(random(), random(), 0.0f) - vec3(1.0f, 1.0f, 0.0f);
+	} while (dot(p, p) >= 1.0f);
+	return p;
+}
+
+inline float schlick(float cosine, float IOR) {
+	float r0 = (1.0f - IOR) / (1.0f + IOR);
+	r0 = r0 * r0;
+	return r0 + (1.0f - r0) * pow((1.0f - cosine), 5.0f);
+}
+
 class ray
 {
 public:
@@ -43,7 +70,7 @@ public:
 
 	ray getRay(float s, float t) {
 		vec3 rd = lensRadius * randomInUnitDisk();
-		vec3  offset = u * rd.x() + v * rd.y();
+		vec3  offset = u * rd.x + v * rd.y;
 		return ray(origin + offset, lowerLeftCorner + s * horizontal + t * vertical - origin - offset);
 	}
 
