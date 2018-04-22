@@ -1,7 +1,6 @@
 #pragma once
 
-#include "ray.h"
-#include "hitable.h"
+#include "math.h"
 
 class material {
 	public:

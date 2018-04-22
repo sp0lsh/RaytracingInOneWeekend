@@ -1,7 +1,7 @@
 #pragma once
 
+#include "math.h"
 #include "material.h"
-#include "ray.h"
 
 class dialectric : public material {
 	public:
