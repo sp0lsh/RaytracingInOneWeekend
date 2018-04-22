@@ -4,7 +4,8 @@
 
 class camera {
 public:
-	camera(vec3 lookFrom, vec3 lookAt, vec3 up, float vfov, float aspect, float aperture, float focusDisk) { // vfov: top-bottom, degrees
+	// vfov: top-bottom, degrees
+	camera(const vec3& lookFrom, const vec3& lookAt, const vec3& up, float vfov, float aspect, float aperture, float focusDisk) {
 
 		lensRadius = aperture / 2.0f;
 
@@ -25,7 +26,7 @@ public:
 	ray getRay(float s, float t) {
 		vec3 rd = lensRadius * randomInUnitDisk();
 		vec3  offset = u * rd.x() + v * rd.y();
-		return ray(origin, lowerLeftCorner + s * horizontal + t * vertical - origin - offset);
+		return ray(origin + offset, lowerLeftCorner + s * horizontal + t * vertical - origin - offset);
 	}
 
 	vec3 origin;
