@@ -30,7 +30,6 @@ class vec3 {
 		float e[3];
 };
 
-
 inline vec3& vec3::operator+=(const vec3 &v) {
 	e[0] += v.e[0];
 	e[1] += v.e[1];
@@ -166,11 +165,26 @@ inline float lerp(const float a, const float b, const float t)
 	return (1.0f - t)*a + t * b;
 }
 
-float random();
+float random()
+{
+	return static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+}
 
-vec3 randomInUnitSphere();
+vec3 randomInUnitSphere() {
+	vec3 p;
+	do {
+		p = 2.0f * vec3(random(), random(), random()) - vec3(1.0f, 1.0f, 1.0f);
+	} while (dot(p, p) >= 1.0f);
+	return p;
+}
 
-vec3 randomInUnitDisk();
+vec3 randomInUnitDisk() {
+	vec3 p;
+	do {
+		p = 2.0f * vec3(random(), random(), 0.0f) - vec3(1.0f, 1.0f, 0.0f);
+	} while (dot(p, p) >= 1.0f);
+	return p;
+}
 
 inline float schlick(float cosine, float IOR) {
 	float r0 = (1.0f-IOR) / (1.0f+IOR);
